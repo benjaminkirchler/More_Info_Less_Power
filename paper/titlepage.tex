@@ -1,5 +1,5 @@
 % ====================================================
-% Title Page – Working Paper Template
+% Title Page – Working Paper / Double-Blind Template
 % ====================================================
 
 \makeatletter
@@ -18,19 +18,22 @@
 }
 
 % ----------------------
-% Authors
+% Authors and affiliations
 % ----------------------
+\ifanonymous
+
 \author{
-    \textbf{Benjamin Kirchler}\textsuperscript{a,b}
-    \and
-    \textbf{Andrea Kollmann}\textsuperscript{a}
-    \and
-    \textbf{Johannes Reichl}\textsuperscript{a,c}
+    Anonymous Author(s)
 }
 
-% ----------------------
-% Affiliations
-% ----------------------
+\date{}
+
+\else
+
+\author{
+    \textbf{Benjamin Kirchler}\textsuperscript{a,b}
+}
+
 \makeatletter
 \let\oldmakefnmark\@makefnmark
 \renewcommand{\@makefnmark}{}
@@ -42,19 +45,13 @@
 }
 
 \footnotetext{%
-    \textsuperscript{b}Vienna University of Business and Economics, 
+    \textsuperscript{b}Vienna University of Economics and Business, 
     Welthandelsplatz 1, 1020 Vienna, Vienna, Austria%
-}
-
-\footnotetext{%
-    \textsuperscript{c}Linz Institute of Technology (LIT), 
-    Altenberger Str. 69, 4040 Linz, Upper Austria, Austria%
 }
 
 \let\@makefnmark\oldmakefnmark
 \makeatother
 
-% ----------------------
-% Date
-% ----------------------
 \date{\today}
+
+\fi
