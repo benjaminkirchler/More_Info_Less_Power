@@ -81,9 +81,35 @@ Month
 \end{tabular*}
 
 \caption*{\scriptsize
-\textit{Note:} ``Active (\%)'' reports the number and share of households with at least one interaction in a given month since treatment. ``Mean'' denotes the average number of interactions among active users. ``Total'' reports the total number of interactions per month. Later months are not observed for all tranches due to the staggered rollout of the intervention.}
+\textit{Note:} ``Active (\%)'' reports the number and share of households with at least one interaction in a given month since treatment. Mean denotes the average number of interactions among active users. Total reports the total number of interactions per month. Later months are not observed for all tranches due to the staggered rollout of the intervention.}
 \end{sidewaystable}
 
+
+\begin{table}[htbp]
+\centering
+\caption{Comparison of Sample Households with Upper Austria and Austria}
+\label{tab:sample_comparison}
+\begin{threeparttable}
+\begin{tabular}{lccc}
+\toprule
+ & Sample & Upper Austria & Austria \\
+\midrule
+Apartment (share)              & 0.280 & 0.610 & 0.460 \\
+Ownership (share)              & 0.760 & 0.520 & 0.490 \\
+Living space (m\textsuperscript{2}) & 133.4 & 107.8 & 99.9 \\
+Household size (persons)       & 2.70  & 2.28  & 2.20 \\
+Heat pump for heating (share)  & 0.310 & 0.110 & 0.100 \\
+Electric car (share)           & 0.015 & 0.004 & 0.004 \\
+Dryer (share)                  & 0.570 & 0.450 & 0.410 \\
+Computer (share)               & 0.980 & 0.720 & 0.730 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\footnotesize
+\item Population figures refer to households in Upper Austria and Austria. Sample figures refer to households in the final analysis sample.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
 
 \begin{figure}
 \centering
@@ -92,16 +118,17 @@ Month
 \label{fig:tranche_pre_calendar}
 \end{figure}
 
-
-\begin{table}[htbp]\centering
-\caption{Dynamic Treatment Effects by Consumption Type (Full Event Study)}
+\begin{table}[htbp]
+\centering
+\caption{Dynamic Treatment Effects by Consumption Type}
 \label{tab:event_study_full}
+\begin{threeparttable}
 \scriptsize
 \begin{tabular}{lccc lccc}
 \toprule
-\multicolumn{4}{c}{\textbf{Weeks -3 to 24}} & \multicolumn{4}{c}{\textbf{Weeks 25 to 50+}} \\
+\multicolumn{4}{c}{\textbf{Weeks $-3$ to $24$}} & \multicolumn{4}{c}{\textbf{Weeks $25$ to $50+$}} \\
 \cmidrule(lr){1-4} \cmidrule(lr){5-8}
- & Total & Flexible & Non-flex &  & Total & Flexible & Non-flex \\
+ & Total & Flexible & Non-flexible &  & Total & Flexible & Non-flexible \\
 \midrule
 
 Week $-3$ & -0.088 & -0.148 & 0.060 & Week $25$ & -0.512 & -0.359 & -0.154 \\
@@ -182,14 +209,53 @@ Week $22$ & -0.777** & -0.578** & -0.199 & Week $49$ & -0.467 & -0.289 & -0.179 
 Week $23$ & -0.802* & -0.579* & -0.221 & Week $50$ & -0.396 & -0.190 & -0.208* \\
           & (0.426) & (0.298) & (0.169) &           & (0.299) & (0.220) & (0.123) \\
 
-Week $24$ & -0.709** & -0.537** & -0.172 & Week $50+$ & -0.55 & -0.33 & -0.23 \\
-          & (0.341)  & (0.248)  & (0.131) &            & (0.43) & (0.32) & (0.17) \\
+Week $24$ & -0.709** & -0.537** & -0.172 & Week $50+$ & -0.550 & -0.330 & -0.230 \\
+          & (0.341)  & (0.248)  & (0.131) &            & (0.430) & (0.320) & (0.170) \\
 
 \bottomrule
 \end{tabular}
-
-\vspace{0.3cm}
+\begin{tablenotes}[flushleft]
 \footnotesize
-Notes: The table reports dynamic treatment effects relative to the week prior to treatment. Standard errors clustered at the household level are reported in parentheses. Week 50+ reports the average effect for all weeks beyond 50. Significance levels: ** $p<0.05$, * $p<0.10$.
+\item The table reports dynamic treatment effects relative to the week prior to treatment. Standard errors clustered at the household level are reported in parentheses. Week $50+$ reports the average effect for all weeks beyond week 50. Significance levels: ** $p<0.05$, * $p<0.10$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
 
+
+
+\begin{table}[htbp]
+\centering
+\caption{Pre-Treatment Electricity Consumption (kWh/day) by Engagement Group}
+\label{tab:pre_engagement}
+\begin{threeparttable}
+\begin{tabular}{lcccc}
+\toprule
+ & Baseline & High & Medium & Low \\
+\midrule
+\textbf{Panel A: Tranche 1 (20 pre-days)} \\
+Mean (SE) & 8.639 & 8.564 & 8.703 & 9.464 \\
+ & (0.095) & (0.212) & (0.193) & (0.202) \\
+Diff. vs Baseline & -- & $-0.075$ & $0.064$ & $0.825$ \\
+HHs & 192 & 35 & 49 & 45 \\
+\midrule
+\textbf{Panel B: Tranche 2 (7 pre-days)} \\
+Mean (SE) & 9.419 & 9.701 & 11.673 & 8.236 \\
+ & (0.158) & (0.384) & (0.365) & (0.360) \\
+Diff. vs Baseline & -- & $0.282$ & $2.254$ & $-1.183$ \\
+HHs & 261 & 38 & 37 & 39 \\
+\midrule
+\textbf{Panel C: Tranche 3 (12 pre-days)} \\
+Mean (SE) & 10.829 & 13.746 & 10.795 & 10.963 \\
+ & (0.193) & (0.682) & (0.540) & (0.690) \\
+Diff. vs Baseline & -- & $2.917$ & $-0.034$ & $0.134$ \\
+HHs & 136 & 18 & 12 & 19 \\
+\midrule
+\multicolumn{5}{l}{\textit{Standard errors clustered at household level. Differences unadjusted.}} \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\footnotesize
+\item Baseline = Control + Never-engaged app households. Engagement categories from post-treatment login tertiles. Pre-treatment means weighted by available days per tranche. Patterns are descriptive; post-treatment engagement measurement may correlate with unobserved baseline characteristics.
+\end{tablenotes}
+\end{threeparttable}
 \end{table}
