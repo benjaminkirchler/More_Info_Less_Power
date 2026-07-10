@@ -24,7 +24,7 @@ To further investigate the underlying behavioral adjustments and to address our 
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{lccccc}
 \toprule
- & Daily & Log hourly & Daily & Daytime & Non-day. \\
+ & Daily & Log hourly & Daily & Daytime & Non-daytime \\
  & kWh & kWh & kWh & kWh & kWh \\
 \cmidrule(lr){2-6}
  & (1) & (2) & (3) & (4) & (5) \\
@@ -74,7 +74,7 @@ Time FE      & Day & Day & Week & Week & Week \\
 
 \begin{tablenotes}[flushleft]
 \footnotesize
-\item The table reports intention-to-treat effects of app access on electricity consumption. Columns (1) and (3) use daily electricity consumption in kWh. Column (2) uses log hourly electricity consumption. Columns (4) and (5) split daily consumption into daytime and non-daytime consumption. TWFE estimates are from two-way fixed effects regressions. Sun--Abraham estimates report average treatment effects from staggered difference-in-differences models. Standard errors clustered at the household level are reported in parentheses. Significance levels: ** $p<0.05$, * $p<0.10$. The observation count in column (2) (8,287,525) is lower than the total number of hourly observations in the analysis sample (8,495,920, see Appendix Table~\ref{tab:sample_selection}) because the log specification drops 208,395 hours with zero consumption.
+\item The table reports intention-to-treat effects of app access on electricity consumption. Columns (1) and (3) use daily electricity consumption in kWh. Column (2) uses log hourly electricity consumption. Columns (4) and (5) split daily consumption into daytime and non-daytime consumption. TWFE estimates are from two-way fixed effects regressions. Sun--Abraham estimates report average treatment effects from staggered difference-in-differences models. Standard errors clustered at the household level are reported in parentheses. Significance levels: ** $p<0.05$, * $p<0.10$. The observation count in column (2) (8,287,525) is lower than the total number of hourly observations in the analysis sample (8,495,920, see Appendix Table~\ref{tab:sample_selection}) because the log specification drops hours with zero consumption.
 \end{tablenotes}
 
 \end{threeparttable}
