@@ -508,8 +508,8 @@ extract_sunab <- function(model, label){
 
 df_all <- bind_rows(
   extract_sunab(m_total, "Total"),
-  extract_sunab(m_flex, "Flexible"),
-  extract_sunab(m_inflex, "Non-flexible")
+  extract_sunab(m_flex, "Daytime"),
+  extract_sunab(m_inflex, "Non-daytime")
 ) %>%
   filter(week >= -10 & week <= 40)
 
@@ -531,8 +531,8 @@ gg_combined <- ggplot(df_all, aes(x = week, y = estimate, color = type)) +
   
   scale_color_manual(values = c(
     "Total" = "black",
-    "Flexible" = "#1b9e77",
-    "Non-flexible" = "#d95f02"
+    "Daytime" = "#1b9e77",
+    "Non-daytime" = "#d95f02"
   )) +
   
   labs(
@@ -577,15 +577,15 @@ gg_combined2 <- ggplot(df_all, aes(x = week, y = estimate, color = type)) +
   # colors (softer, publication style)
   scale_color_manual(values = c(
     "Total" = "black",
-    "Flexible" = "#2a9d8f",
-    "Non-flexible" = "#e76f51"
+    "Daytime" = "#2a9d8f",
+    "Non-daytime" = "#e76f51"
   )) +
-  
+
   # emphasize total slightly
   scale_size_manual(values = c(
     "Total" = 1.2,
-    "Flexible" = 1,
-    "Non-flexible" = 1
+    "Daytime" = 1,
+    "Non-daytime" = 1
   )) +
   
   labs(
