@@ -1,3 +1,9 @@
+% Elsevier appendix exhibit numbering: Table A.1, Fig. A.1, ...
+\setcounter{table}{0}
+\renewcommand{\thetable}{A.\arabic{table}}
+\setcounter{figure}{0}
+\renewcommand{\thefigure}{A.\arabic{figure}}
+
 \begin{table}[H]
 \centering
 \caption{Sample construction and selection diagnostics}
@@ -114,7 +120,7 @@ Computer (share)               & 0.980 & 0.720 & 0.730 \\
 \begin{figure}
 \centering
 \includegraphics[width=1\linewidth]{paper/figures/descriptive_hourly_pre_by_tranche_calendar.pdf}
-\caption{Pre-treatment hourly electricity consumption by tranche and group over time. Panels are shown for each tranche. }
+\caption{Pre-treatment hourly electricity consumption by tranche and group over time. Panels are shown for each tranche. Panel labels report the number of households per group. Group sizes differ from the final analysis sample in Table~\ref{tab:recruitment} because 11 households have no pre-treatment observations (see the note to Table~\ref{tab:pre_engagement}).}
 \label{fig:tranche_pre_calendar}
 \end{figure}
 
