@@ -25,7 +25,9 @@ required_packages <- c(
   "interactions",
   "janitor",
   "here",
-  "readxl"
+  "readxl",
+  "wesanderson",
+  "broom"
 )
 
 missing_packages <- required_packages[!required_packages %in% rownames(installed.packages())]
@@ -50,6 +52,13 @@ options(
 
 set.seed(123456)
 
+# English date labels in figures regardless of system locale
+invisible(tryCatch(
+  Sys.setlocale("LC_TIME", "English"),
+  warning = function(w) Sys.setlocale("LC_TIME", "en_US.UTF-8"),
+  error   = function(e) Sys.setlocale("LC_TIME", "en_US.UTF-8")
+))
+
 # ---------------------------------------------------------------------------
 # 3. Project paths
 # ---------------------------------------------------------------------------
@@ -68,20 +77,32 @@ dir.create(paths$output_figures, showWarnings = FALSE, recursive = TRUE)
 dir.create(paths$output_models, showWarnings = FALSE, recursive = TRUE)
 
 # ---------------------------------------------------------------------------
-# 4. Sanity checks (raw data existence ONLY)
+# 3b. Replication mode
+# If the full processed data is unavailable but the anonymized replication
+# data (shipped with the public repository) is present, use it instead.
+# ---------------------------------------------------------------------------
+if (!file.exists(file.path(paths$data_processed, "dt_analysis.rds")) &&
+    file.exists(here::here("data", "replication", "dt_analysis.rds"))) {
+  paths$data_processed <- here::here("data", "replication")
+  message("Full processed data not found - using anonymized replication data in data/replication/.")
+}
+
+# ---------------------------------------------------------------------------
+# 4. Raw data availability (needed only for pipeline stages 01-03)
 # ---------------------------------------------------------------------------
 required_files <- c(
   file.path(paths$data_raw, "PA_cleaned.csv"),
   file.path(paths$data_raw, "MILP_app_usage.xlsx")
 )
 
-missing_files <- required_files[!file.exists(required_files)]
+has_raw_data <- all(file.exists(required_files))
 
-if (length(missing_files) > 0) {
-  stop(paste0(
-    "Missing required raw data files:\n",
-    paste(missing_files, collapse = "\n")
-  ))
+if (!has_raw_data) {
+  message(
+    "Raw data not available (restricted; see README). ",
+    "Pipeline stages 01-03 will be skipped; the analysis runs from the ",
+    "included replication data."
+  )
 }
 
 message("00_setup.R completed successfully.")

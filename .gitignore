@@ -19,6 +19,14 @@ data/final/
 *.RData
 *.sqlite
 
+# --- Anonymized replication data (PUBLIC) ---
+# Exception: the anonymized replication dataset shipped with the public repo.
+!data/replication/
+!data/replication/**
+!data/replication/*.rds
+!data/replication/*.csv
+!data/replication/README.md
+
 # --- Output & Figures ---
 # If you only want to keep the final figures, ignore the rest
 # paper/figures/ (uncomment if you don't want to track figures)
@@ -28,3 +36,8 @@ data/final/
 Thumbs.db
 .vscode/
 .idea/
+
+# --- R session / tooling artifacts ---
+.r-lib/
+.r-config/
+Rplots.pdf

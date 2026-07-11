@@ -41,9 +41,17 @@ setDT(dt_hourly)
 
 
 
-message("Loading 15-min data...")
-dt_15 <- fread(file.path(paths$data_processed, "dt_15min.csv.gz"))
-setDT(dt_15)
+# The 15-minute data (~730 MB) is only used for two supplementary load-curve
+# figures that are NOT part of the paper. It is not shipped with the public
+# replication package; when absent, those figures are skipped.
+have_15min <- file.exists(file.path(paths$data_processed, "dt_15min.csv.gz"))
+if (have_15min) {
+  message("Loading 15-min data...")
+  dt_15 <- fread(file.path(paths$data_processed, "dt_15min.csv.gz"))
+  setDT(dt_15)
+} else {
+  message("15-min data not found - skipping 15-minute supplementary figures.")
+}
 
 
 # ---------------------------------------------------------------------------
@@ -59,6 +67,7 @@ if (!"date" %in% names(dt_hourly)) {
   dt_hourly[, date := as.Date(datetime)]
 }
 
+if (have_15min) {
 dt_15[, datetime := as.POSIXct(clock_local)]
 dt_15[, date := as.Date(datetime)]
 
@@ -139,6 +148,7 @@ dt_15 <- group_map[dt_15]
 # derive 15-min position in day for plotting
 dt_15[, minute := as.integer(format(datetime, "%M"))]
 dt_15[, hour_of_day_15 := as.numeric(format(datetime, "%H")) + minute / 60]
+}  # end if (have_15min)
 
 # ---------------------------------------------------------------------------
 # 6. Define treatment dates, post, and event time
@@ -157,6 +167,7 @@ dt_hourly[, treat_date := fcase(
 )]
 
 
+if (have_15min) {
 dt_15[, treat_date := fcase(
   Tranche1 == 1, tranche_dates$tranche1,
   Tranche2 == 1, tranche_dates$tranche2,
@@ -172,9 +183,10 @@ dt_15[, post := fcase(
   Tranche3 == 1 & date >= tranche_dates$tranche3, 1,
   default = 0
 )]
+}
 
 dt_hourly[, rel_day := as.integer(date - treat_date)]
-dt_15[, rel_day := as.integer(date - treat_date)]
+if (have_15min) dt_15[, rel_day := as.integer(date - treat_date)]
 
 # Define tranc  he variable
 dt_hourly[, tranche := fcase(
@@ -190,10 +202,10 @@ dt_hourly %>% group_by(tranche,group) %>% summarise(n_distinct(household))
 # 7. Keep only Control vs App for main descriptives
 # ---------------------------------------------------------------------------
 dt_hourly_ca <- dt_hourly[group %in% c("Control", "App")]
-dt_15_ca     <- dt_15[group %in% c("Control", "App")]
+if (have_15min) dt_15_ca <- dt_15[group %in% c("Control", "App")]
 
 dt_hourly_pre <- dt_hourly_ca[post == 0]
-dt_15_pre     <- dt_15_ca[post == 0]
+if (have_15min) dt_15_pre <- dt_15_ca[post == 0]
 
 
 # ---------------------------------------------------------------------------
@@ -226,6 +238,7 @@ ggsave(
   height = 5
 )
 
+if (have_15min) {
 loadcurve_15 <- dt_15_pre[, .(
   mean_consumption = mean(consumption, na.rm = TRUE)
 ), by = .(group, hour_of_day_15)]
@@ -250,6 +263,7 @@ ggsave(
   width = 8,
   height = 5
 )
+}
 
 message("Creating 15-min pre-treatment load curves by tranche...")
 
@@ -343,6 +357,7 @@ ggsave(
 # ---------------------------------------------------------------------------
 # 1. Keep pre-treatment observations only
 # ---------------------------------------------------------------------------
+if (have_15min) {
 dt_15_pre_tranche <- dt_15[
   post == 0 &
     !is.na(treat_date)
@@ -359,6 +374,7 @@ dt_15_pre_tranche[, tranche := fcase(
 
 dt_15_pre_tranche[, tranche := factor(tranche,
                                       levels = c("Tranche 1","Tranche 2","Tranche 3"))]
+}
 
 
 
@@ -934,9 +950,11 @@ fwrite(
 # ---------------------------------------------------------------------------
 # 13. Save filtered 15-min descriptive sample
 # ---------------------------------------------------------------------------
+if (have_15min) {
 saveRDS(
   dt_15,
   file.path(paths$data_processed, "dt_15min_finalsample.rds")
 )
+}
 
 message("05_descriptive.R completed successfully.")
